@@ -13,9 +13,6 @@ namespace NexbenExercise.Services
 
         public async Task<IOrderedEnumerable<KeyValuePair<string, ArtistCount>>> GetAllTracks(string apiKey, int songsInput)
         {
-            // I tried to make this configurable in terms of number of songs, but the LastFM API is bugged. Most anything above
-            // 100 that is a multiple of 50 will only return 50 songs (ex: 250 --> returns 50 songs, but 249 --> returns 249).
-            // however, 1000 returns 1000. ::this-is-fine::
             var lastFmApi = $"https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key={apiKey}&limit={songsInput}&format=json";
             var apiResult = await _client.GetAsync(lastFmApi);
             var stringResult = await apiResult.Content.ReadAsStringAsync();

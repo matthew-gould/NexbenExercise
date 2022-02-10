@@ -78,7 +78,7 @@ namespace NexbenExercise
             }
             else
             {
-                GetSongsInput("Trcky Tricky! Enter NUMBER of songs you'd like:");
+                GetSongsInput("Trcky Tricky! Enter WHOLE NUMBER of songs you'd like:");
             }
         }
 
