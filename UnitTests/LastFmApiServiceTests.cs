@@ -7,11 +7,15 @@ using System.Linq;
 
 namespace UnitTests
 {
+    // Ideally being able to mock HttpClient and test every method in the serviec would be nice
+    // however dealing with the DI for both IConfig and HttpClient was a bit more than I wanted 
+    // to take on for this. Also I would really just be mocking HttpClient and therefor only really
+    // testing Newtonsoft, whichshould already has robusts tests around it.
     [TestClass]
     public class LastFmApiServiceTests
     {
         TayTayBae mockTayTayBae;
-        LastFmModel mockFmModel;
+        List<Track> mockTrackList;
         ILastFmApiService _service;
 
         [TestInitialize]
@@ -43,39 +47,33 @@ namespace UnitTests
                 }
             };
 
-            mockFmModel = new LastFmModel()
-            {
-                Tracks = new Tracks()
+            mockTrackList = new List<Track>()
                 {
-                    Track = new List<Track>()
+                    new Track()
                     {
-                        new Track()
+                        Artist = new Artist()
                         {
-                            Artist = new Artist()
-                            {
-                                Name = "TayTay"
-                            },
-                            Playcount = 5
+                            Name = "TayTay"
                         },
-                        new Track()
+                        Playcount = 5
+                    },
+                    new Track()
+                    {
+                        Artist = new Artist()
                         {
-                            Artist = new Artist()
-                            {
-                                Name = "TayTay"
-                            },
-                            Playcount = 4
+                            Name = "TayTay"
                         },
-                        new Track()
+                        Playcount = 4
+                    },
+                    new Track()
+                    {
+                        Artist = new Artist()
                         {
-                            Artist = new Artist()
-                            {
-                                Name = "NotTayTay"
-                            },
-                            Playcount = 3
-                        }
+                            Name = "NotTayTay"
+                        },
+                        Playcount = 3
                     }
-                }
-            };
+                };
 
             _service = new LastFmApiService();
         }
@@ -91,7 +89,7 @@ namespace UnitTests
         [TestMethod]
         public void SortArtists_Should_Return_Sorted_List()
         {
-            var result = _service.SortArtists(mockFmModel).ToList();
+            var result = _service.SortArtists(mockTrackList).ToList();
 
             Assert.AreEqual(result[0].Key, "TayTay");
             Assert.AreEqual(result[0].Value.SongCount, 2);

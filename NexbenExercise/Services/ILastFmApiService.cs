@@ -7,9 +7,9 @@ namespace NexbenExercise.Services
 {
     public interface ILastFmApiService
     {
-        public Task<IOrderedEnumerable<KeyValuePair<string, ArtistCount>>> GetAllTracks(string apiKey);
+        public Task<IOrderedEnumerable<KeyValuePair<string, ArtistCount>>> GetAllTracks(string apiKey, int songsInput);
         public Task<string> TayTayIsMyBae(string apiKey);
         public string GetTopRankedSong(TayTayBae songList);
-        public IOrderedEnumerable<KeyValuePair<string, ArtistCount>> SortArtists(LastFmModel songList);
+        public IOrderedEnumerable<KeyValuePair<string, ArtistCount>> SortArtists(List<Track> songList);
     }
 }

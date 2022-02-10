@@ -10,6 +10,9 @@ namespace NexbenExercise
 {
     class Program
     {
+        static int songsInput;
+        static float percentageInput;
+
         static async Task Main(string[] args)
         {
             // DI for this seems overkill, but I thought building this out in a normal
@@ -27,11 +30,15 @@ namespace NexbenExercise
             .Build();
 
             var apiKey = config.GetSection("ApiKey").Value;
+
+            GetSongsInput("Enter number of songs you'd like:");
+            GetTopXInput("Enter percentage in decimal form of top artists you'd like returned:");
+            Console.WriteLine("\r\n");
             
-            var result = await apiService.GetAllTracks(apiKey);
+            var result = await apiService.GetAllTracks(apiKey, songsInput);
 
             var resultCount = result.Count();
-            var topHalf = Math.Ceiling(resultCount / 2.0);
+            var topHalf = Math.Ceiling(resultCount * percentageInput);
 
             var resultList = result.ToList();
             List<KeyValuePair<string, int>> DivisibleByNineList = new List<KeyValuePair<string, int>>();
@@ -60,6 +67,43 @@ namespace NexbenExercise
             }
 
             Console.ReadLine();
+        }
+
+        private static void GetSongsInput(string message)
+        {
+            int intResult;
+            Console.WriteLine(message);
+            var result = Console.ReadLine();
+            if (int.TryParse(result, out intResult))
+            {
+                songsInput = intResult;
+            }
+            else
+            {
+                GetSongsInput("Trcky Tricky! Enter NUMBER of songs you'd like:");
+            }
+        }
+
+        private static void GetTopXInput(string message)
+        {
+            float floatResult;
+            Console.WriteLine(message);
+            var result = Console.ReadLine();
+            if (float.TryParse(result, out floatResult))
+            {
+                if (floatResult > 1)
+                {
+                    GetTopXInput("Please enter precentage in decimal form:");
+                }
+                else
+                {
+                    percentageInput = floatResult;
+                }
+            }
+            else
+            {
+                GetTopXInput("Trcky Tricky! Enter precentage NUMBER you'd like:");
+            }
         }
     }
 }

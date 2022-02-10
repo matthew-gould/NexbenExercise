@@ -11,15 +11,17 @@ namespace NexbenExercise.Services
     {
         private static HttpClient _client = new HttpClient();
 
-        public async Task<IOrderedEnumerable<KeyValuePair<string, ArtistCount>>> GetAllTracks(string apiKey)
+        public async Task<IOrderedEnumerable<KeyValuePair<string, ArtistCount>>> GetAllTracks(string apiKey, int songsInput)
         {
-            var lastFmApi = $"https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key={apiKey}&format=json";
-
+            // I tried to make this configurable in terms of number of songs, but the LastFM API is bugged. Most anything above
+            // 100 that is a multiple of 50 will only return 50 songs (ex: 250 --> returns 50 songs, but 249 --> returns 249).
+            // however, 1000 returns 1000. ::this-is-fine::
+            var lastFmApi = $"https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key={apiKey}&limit={songsInput}&format=json";
             var apiResult = await _client.GetAsync(lastFmApi);
             var stringResult = await apiResult.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<LastFmModel>(stringResult);
-
-            var sortedResult = SortArtists(result);
+                
+            var sortedResult = SortArtists(result.Tracks.Track);
 
             return sortedResult;
         }
@@ -40,12 +42,12 @@ namespace NexbenExercise.Services
             return songList.TopTracks?.Track?.Where(x => x.RankMeta.Rank == 1).FirstOrDefault().Name;
         }
 
-        public IOrderedEnumerable<KeyValuePair<string, ArtistCount>> SortArtists(LastFmModel songList)
+        public IOrderedEnumerable<KeyValuePair<string, ArtistCount>> SortArtists(List<Track> songList)
         {
 
             var artistList = new Dictionary<string, ArtistCount>();
 
-            foreach (var track in songList.Tracks.Track)
+            foreach (var track in songList)
             {
                 if (artistList.ContainsKey(track.Artist.Name))
                 {
