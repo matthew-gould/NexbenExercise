@@ -74,7 +74,7 @@ namespace NexbenExercise
             var result = Console.ReadLine();
             if (int.TryParse(result, out intResult))
             {
-                songsInput = intResult;
+                songsInput = intResult != 0 ? intResult : 50;
             }
             else
             {
