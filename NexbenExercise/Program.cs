@@ -15,8 +15,6 @@ namespace NexbenExercise
 
         static async Task Main(string[] args)
         {
-            // DI for this seems overkill, but I thought building this out in a normal
-            // workflow and with better organization would be helpful.
             var serviceBuilder = new ServiceCollection()
             .AddSingleton<ILastFmApiService, LastFmApiService>()
             .BuildServiceProvider();
