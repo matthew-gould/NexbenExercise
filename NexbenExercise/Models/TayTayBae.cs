@@ -3,13 +3,13 @@ using System.Text.Json.Serialization;
 
 namespace NexbenExercise.Models
 {
-    class TayTayBae
+    public class TayTayBae
     {
         [JsonPropertyName("toptracks")]
         public TopTracks TopTracks { get; set; }
     }
 
-    class TopTracks
+    public class TopTracks
     {
         public List<Track> Track { get; set; }
     }

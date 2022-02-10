@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace NexbenExercise.Services
 {
-    class LastFmApiService : ILastFmApiService
+    public class LastFmApiService : ILastFmApiService
     {
-        private HttpClient _client = new HttpClient();
+        // should have wrapped this in an IApiClient interface or something and leveraged DI instead of Singleton.
+        private static HttpClient _client = new HttpClient();
 
         public async Task<IOrderedEnumerable<KeyValuePair<string, ArtistCount>>> GetAllTracks(string apiKey)
         {
@@ -32,7 +33,12 @@ namespace NexbenExercise.Services
             var tayString = await tayResult.Content.ReadAsStringAsync();
             var tayBae = JsonConvert.DeserializeObject<TayTayBae>(tayString);
 
-            return tayBae.TopTracks?.Track?.Where(x => x.RankMeta.Rank == 1).FirstOrDefault().Name;
+            return GetTopRankedSong(tayBae);
+        }
+
+        public string GetTopRankedSong(TayTayBae songList)
+        {
+            return songList.TopTracks?.Track?.Where(x => x.RankMeta.Rank == 1).FirstOrDefault().Name;
         }
 
         public IOrderedEnumerable<KeyValuePair<string, ArtistCount>> SortArtists(LastFmModel songList)
@@ -60,7 +66,7 @@ namespace NexbenExercise.Services
                      );
                 }
             }
-
+            // hate taking a nice O(1) and doing this, but I didnt see a better way:
             var sortedArtistList = artistList.OrderByDescending(x => x.Value.SongCount);
             return sortedArtistList;
         }

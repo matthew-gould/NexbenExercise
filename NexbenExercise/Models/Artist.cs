@@ -2,7 +2,7 @@
 
 namespace NexbenExercise.Models
 {
-    class Artist
+    public class Artist
     {
         [JsonPropertyName("name")]
         public string Name { get; set; }

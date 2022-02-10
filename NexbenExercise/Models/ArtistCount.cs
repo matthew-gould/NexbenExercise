@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NexbenExercise.Models
 {
-    class ArtistCount
+    public class ArtistCount
     {
         public int SongCount { get; set; }
         public int TotalPlaycount { get; set; }

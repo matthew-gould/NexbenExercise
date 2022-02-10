@@ -2,7 +2,7 @@
 
 namespace NexbenExercise.Models
 {
-    class LastFmModel
+    public class LastFmModel
     {
         [JsonPropertyName("tracks")]
         public Tracks Tracks { get; set; }

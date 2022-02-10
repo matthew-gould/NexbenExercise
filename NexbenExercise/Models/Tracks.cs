@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace NexbenExercise.Models
 {
-    class Tracks
+    public class Tracks
     {
         [JsonPropertyName("track")]
         public List<Track> Track { get; set; }
