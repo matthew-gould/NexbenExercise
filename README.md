@@ -2,7 +2,8 @@
 Tech Screen
 
 My approach to this was to make a console app, but still try to include some of my normal workflow, so I included (some) dependency injection and also
-allowed the user to input both the number of songs and the % of top artists they want to get back (for challenge 2/3).
+allowed the user to input both the number of songs and the % of top artists they want to get back (for challenge 2/3). I also wanted to interate as few times as possible
+to make it a more 'efficient' program.
 
 Regarding the DI, ideally IConfig (used to conceal your API Key) would be injected into the service, not the program.cs. However, I found attempting to do this was cumbersome setup-wise and not worth the time, so I made the ApiKey a parameter for the API calls instead. I also instantiated the HttpClient, but if I could go back I'd use IHttpClientFactory via DI in my service to make it more in line with a normal workflow.
 
