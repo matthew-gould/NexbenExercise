@@ -78,7 +78,7 @@ namespace NexbenExercise
             }
             else
             {
-                GetSongsInput("Trcky Tricky! Enter WHOLE NUMBER of songs you'd like:");
+                GetSongsInput("Tricky! Tricky! Enter WHOLE NUMBER of songs you'd like:");
             }
         }
 
@@ -100,7 +100,7 @@ namespace NexbenExercise
             }
             else
             {
-                GetTopXInput("Trcky Tricky! Enter precentage NUMBER you'd like:");
+                GetTopXInput("Tricky! Tricky! Enter precentage NUMBER you'd like:");
             }
         }
     }
