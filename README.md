@@ -11,3 +11,7 @@ in my service to make it more in line with a normal workflow.
 In regards to the user inputs, I discovered a bug in the LastFM API where most multiples of 50 above 100 will only return 50 songs. For example, 150 and 250 will both
 return only 50 songs. 1000 will return 1000. I didnt feel like testing all the multiples up to 1000 (or above), so just know that some of these inputs will only return 
 50 and that's a bug on LastFM's side. 
+
+I did think of some edge cases:
+1. No guidance around sort order when 2 artists tie (alphabetical? total playcount?).
+2. It is possible to hit the max int (2,147,483,647) in total playcount, though unlikely (Looking at you The Weekend).
