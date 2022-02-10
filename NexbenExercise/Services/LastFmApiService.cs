@@ -9,7 +9,6 @@ namespace NexbenExercise.Services
 {
     public class LastFmApiService : ILastFmApiService
     {
-        // should have wrapped this in an IApiClient interface or something and leveraged DI instead of Singleton.
         private static HttpClient _client = new HttpClient();
 
         public async Task<IOrderedEnumerable<KeyValuePair<string, ArtistCount>>> GetAllTracks(string apiKey)
@@ -66,20 +65,9 @@ namespace NexbenExercise.Services
                      );
                 }
             }
-            // hate taking a nice O(1) and doing this, but I didnt see a better way:
+
             var sortedArtistList = artistList.OrderByDescending(x => x.Value.SongCount);
             return sortedArtistList;
         }
     }
 }
-
-
-//Print the artists who are in the Top-50, ordered from Most Songs in the Top 50 to Least.
-
-//For the artists in the top half of step 1 (err on the side of more, so if there are 7 artists, 
-//return 4 artists, for instance), return only those artists whose playcounts, when added together, are divisible by 9. Return in any order.
-
-//If the above steps feel too easy, add the following catch for an edge case:
-// If no playcounts can be divided by nine, get the top rated Taylor Swift song (see: https://www.last.fm/api/show/artist.getTopTracks -- HINT,
-// her 'artist' entry is 'TaylorSwift') and print it out,
-// as well as a message letting us know that none of the Step Two artists had playcounts divisible by 9.
