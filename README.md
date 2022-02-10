@@ -14,4 +14,5 @@ I did think of some edge cases:
 1. No guidance around sort order when 2 artists tie (alphabetical? total playcount?).
 2. It is possible to hit the max int (2,147,483,647) in total playcount, though unlikely (Looking at you The Weekend).
 
-You may have to plug ApiKey into the Project secrets (NexbenExercise --> Manage User Secrets --> "ApKey": "LastFmApiKey") to run the app.
+You may have to plug ApiKey into the Project secrets (NexbenExercise --> Manage User Secrets --> "ApKey": "LastFmApiKey") to run the app. Alternatively, you can
+put the ApiKey into the appsettings.json, since secrets.json overrides that. Should work either way.
