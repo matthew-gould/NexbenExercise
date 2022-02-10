@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace NexbenExercise.Models
 {
@@ -7,12 +8,21 @@ namespace NexbenExercise.Models
         [JsonPropertyName("name")]
         public string Name { get; set; }
         [JsonPropertyName("playcount")]
-        public string Playcount { get; set; }
+        public int Playcount { get; set; }
         [JsonPropertyName("listeners")]
-        public string Listeners { get; set; }
+        public int Listeners { get; set; }
         [JsonPropertyName("url")]
         public string Url { get; set; }
         [JsonPropertyName("artist")]
         public Artist Artist { get; set; }
+        [JsonProperty("@attr")]
+        [JsonPropertyName("@attr")]
+        public Meta RankMeta { get; set; }
+    }
+
+    class Meta
+    {
+        [JsonPropertyName("rank")]
+        public int Rank { get; set; }
     }
 }

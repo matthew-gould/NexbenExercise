@@ -4,7 +4,7 @@ using System;
 namespace NexbenUnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class LastFmApiServiceTests
     {
         [TestMethod]
         public void TestMethod1()
